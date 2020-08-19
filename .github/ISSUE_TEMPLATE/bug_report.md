@@ -2,13 +2,7 @@
 name: Bug report
 about: Create a report to help us improve
 title: '[Bug]'
-<<<<<<< HEAD
-labels: bug documentation
-=======
-labels: 
-    - bug
-    - documentation
->>>>>>> 4723b093b301728bcf3b7abbe78851094534b75e
+labels: Type: bug
 assignees: ''
 
 ---
