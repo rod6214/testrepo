@@ -7,7 +7,7 @@ import (
 	"github.com/southworks/gnalog/demo/controller/items"
 )
 
-type response struct {
+type Response struct {
 	itemsClient items.ItemServiceClient
 }
 

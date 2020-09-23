@@ -44,7 +44,7 @@ var itemsClient items.ItemServiceClient
 // -----
 
 func main() {
-	actions.testMethod()
+	actions.TestMethod()
 	// log.Println("Starting Controller...")
 	// var clientConnection *grpc.ClientConn
 	// clientConnection, error := grpc.Dial(":9000", grpc.WithInsecure())

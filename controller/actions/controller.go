@@ -24,26 +24,26 @@ type updateItemRequest struct {
 
 func TestMethod() {}
 
-func respondJSON(responseWriter http.ResponseWriter, status int, payload interface{}) {
+// func respondJSON(responseWriter http.ResponseWriter, status int, payload interface{}) {
 
-	response, err := json.Marshal(payload)
-	if err != nil {
-		responseWriter.WriteHeader(http.StatusInternalServerError)
-		responseWriter.Write([]byte(err.Error()))
-		return
-	}
-	responseWriter.Header().Set("Content-Type", "application/json")
-	responseWriter.WriteHeader(status)
-	responseWriter.Write([]byte(response))
-}
+// 	response, err := json.Marshal(payload)
+// 	if err != nil {
+// 		responseWriter.WriteHeader(http.StatusInternalServerError)
+// 		responseWriter.Write([]byte(err.Error()))
+// 		return
+// 	}
+// 	responseWriter.Header().Set("Content-Type", "application/json")
+// 	responseWriter.WriteHeader(status)
+// 	responseWriter.Write([]byte(response))
+// }
 
-func respondMessage(responseWriter http.ResponseWriter, code int, message string) {
-	respondJSON(responseWriter, code, map[string]string{"message": message})
-}
+// func respondMessage(responseWriter http.ResponseWriter, code int, message string) {
+// 	respondJSON(responseWriter, code, map[string]string{"message": message})
+// }
 
-func respondError(responseWriter http.ResponseWriter, code int, message string) {
-	respondJSON(responseWriter, code, map[string]string{"error": message})
-}
+// func respondError(responseWriter http.ResponseWriter, code int, message string) {
+// 	respondJSON(responseWriter, code, map[string]string{"error": message})
+// }
 
 var itemsClient items.ItemServiceClient
 
