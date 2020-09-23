@@ -1,0 +1,16 @@
+{
+    "dynamodb":{
+        "region": "us-east-1",
+        "endpoint": "https://dynamodb.us-east-1.amazonaws.com"
+    },
+    "postgresql":{
+        "host": "%v",
+        "port": 5432,
+        "user": "postgre",
+        "password": "postgre2020",
+        "dbname": "postgre"
+    },
+    "kafka":{
+        "brokers": ["%v", "%v"]
+    }
+}
