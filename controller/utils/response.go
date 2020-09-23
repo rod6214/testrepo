@@ -8,7 +8,7 @@ import (
 )
 
 type Response struct {
-	itemsClient items.ItemServiceClient
+	ItemsClient items.ItemServiceClient
 }
 
 // type createItemRequest struct {
