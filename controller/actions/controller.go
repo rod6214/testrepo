@@ -6,7 +6,8 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
-	"github.com/southworks/gnalog/demo/controller/items"
+	"github.com/rod6214/testrepo/controller/items"
+	// "github.com/southworks/gnalog/demo/controller/items"
 )
 
 // -----------
@@ -21,7 +22,7 @@ type updateItemRequest struct {
 	Description string `json:"description"`
 }
 
-func testMethod() {}
+func TestMethod() {}
 
 func respondJSON(responseWriter http.ResponseWriter, status int, payload interface{}) {
 

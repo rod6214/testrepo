@@ -3,8 +3,9 @@ package main
 import (
 	"encoding/json"
 	"net/http"
-"github.com/southworks/gnalog/demo/controller/actions/controller"
-	"github.com/southworks/gnalog/demo/controller/items"
+	"github.com/rod6214/testrepo/controller/items"
+	"github.com/rod6214/testrepo/controller/actions"
+	// "github.com/southworks/gnalog/demo/controller/items"
 )
 
 // -----
@@ -43,6 +44,7 @@ var itemsClient items.ItemServiceClient
 // -----
 
 func main() {
+	actions.testMethod()
 	// log.Println("Starting Controller...")
 	// var clientConnection *grpc.ClientConn
 	// clientConnection, error := grpc.Dial(":9000", grpc.WithInsecure())

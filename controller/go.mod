@@ -1,4 +1,4 @@
-module github.com/southworks/gnalog/demo/controller
+module github.com/rod6214/testrepo/controller
 
 go 1.14
 
