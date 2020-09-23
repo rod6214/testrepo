@@ -8,66 +8,11 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/rod6214/testrepo/controller/items"
 	"github.com/rod6214/testrepo/controller/utils"
-	// "github.com/rod6214/testrepo/controller/items"
-	// "github.com/southworks/gnalog/demo/controller/items"
 )
 
-// -----------
-
-// type createItemRequest struct {
-// 	ID          string `json:"id"`
-// 	Description string `json:"description"`
-// }
-
-// type updateItemRequest struct {
-// 	ID          string `json:"id"`
-// 	Description string `json:"description"`
-// }
-
-// func TestMethod() {}
-
-// func respondJSON(responseWriter http.ResponseWriter, status int, payload interface{}) {
-
-// 	response, err := json.Marshal(payload)
-// 	if err != nil {
-// 		responseWriter.WriteHeader(http.StatusInternalServerError)
-// 		responseWriter.Write([]byte(err.Error()))
-// 		return
-// 	}
-// 	responseWriter.Header().Set("Content-Type", "application/json")
-// 	responseWriter.WriteHeader(status)
-// 	responseWriter.Write([]byte(response))
-// }
-
-// func respondMessage(responseWriter http.ResponseWriter, code int, message string) {
-// 	respondJSON(responseWriter, code, map[string]string{"message": message})
-// }
-
-// func respondError(responseWriter http.ResponseWriter, code int, message string) {
-// 	respondJSON(responseWriter, code, map[string]string{"error": message})
-// }
-
-// var itemsClient items.ItemServiceClient
-
-// ---------------
 type Controller struct {
-	// ItemsClient items.ItemServiceClient
 	Response utils.Response
 }
-
-// func helloWorld(responseWriter http.ResponseWriter, request *http.Request) {
-// 	var response = utils.Response{items.ItemServiceClient}
-// 	respondMessage(responseWriter, http.StatusOK, "Hello world with CircleCI integrated with Pulumi!")
-// }
-
-// func testGRPC(responseWriter http.ResponseWriter, request *http.Request) {
-// 	testGPRCResponse, error := itemsClient.TestGRPC(context.Background(), &items.TestGRPCRequest{})
-// 	if error != nil {
-// 		respondJSON(responseWriter, http.StatusInternalServerError, error)
-// 		return
-// 	}
-// 	respondJSON(responseWriter, http.StatusOK, testGPRCResponse)
-// }
 
 func (controller Controller) CreateItem(responseWriter http.ResponseWriter, request *http.Request) {
 	itemsClient := controller.Response.ItemsClient
@@ -88,7 +33,6 @@ func (controller Controller) CreateItem(responseWriter http.ResponseWriter, requ
 }
 
 func (controller Controller) ReadItem(responseWriter http.ResponseWriter, request *http.Request) {
-	// res := utils.Response{ItemsClient: controller.ItemsClient}
 	itemsClient := controller.Response.ItemsClient
 	relational := request.URL.Query().Get("relational") == "true"
 	id := mux.Vars(request)["id"]
@@ -126,10 +70,6 @@ func (controller Controller) UpdateItem(responseWriter http.ResponseWriter, requ
 	controller.Response.JSON(responseWriter, http.StatusOK, updateItemResponse)
 }
 
-// func getAllItems(responseWriter http.ResponseWriter, request *http.Request) {
-// 	respondJSON(responseWriter, http.StatusOK, items)
-// }
-
 func (controller Controller) DeleteItem(responseWriter http.ResponseWriter, request *http.Request) {
 	itemsClient := controller.Response.ItemsClient
 	relational := request.URL.Query().Get("relational") == "true"
@@ -146,17 +86,9 @@ func (controller Controller) DeleteItem(responseWriter http.ResponseWriter, requ
 	controller.Response.JSON(responseWriter, http.StatusOK, deleteItemResponse)
 }
 
-// func (controller Controller) New(itemService items.ItemServiceClient) *Controller {
-// 	controller.ItemsClient = itemService
-// 	return controller
-// }
-
 func (controller Controller) GetIds(responseWriter http.ResponseWriter, request *http.Request) {
 	itemsClient := controller.Response.ItemsClient
-	// res := utils.Response{ItemsClient: itemsClient}
-
 	relational := request.URL.Query().Get("relational") == "true"
-	// getIdsResponse, error := itemsClient.ListIds(context.Background(), &items.ListIdsRequest{Relational: relational})
 	getIdsResponse, error := itemsClient.ListIds(context.Background(), &items.ListIdsRequest{Relational: relational})
 	if error != nil {
 		controller.Response.JSON(responseWriter, http.StatusInternalServerError, error)
