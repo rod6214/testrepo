@@ -46,11 +46,11 @@ func TestMethod() {}
 // 	respondJSON(responseWriter, code, map[string]string{"error": message})
 // }
 
-var itemsClient items.ItemServiceClient
+// var itemsClient items.ItemServiceClient
 
 // ---------------
 type Controller struct {
-	itemsClient items.ItemServiceClient
+	ItemsClient items.ItemServiceClient
 }
 
 // func helloWorld(responseWriter http.ResponseWriter, request *http.Request) {
@@ -140,7 +140,7 @@ type Controller struct {
 // }
 
 func (controller *Controller) getIds(responseWriter http.ResponseWriter, request *http.Request) {
-	var res = &utils.Response{controller.itemsClient}
+	var res = &utils.Response{controller.ItemsClient}
 	relational := request.URL.Query().Get("relational") == "true"
 	// getIdsResponse, error := itemsClient.ListIds(context.Background(), &items.ListIdsRequest{Relational: relational})
 	getIdsResponse, error := controller.itemsClient.ListIds(context.Background(), &items.ListIdsRequest{Relational: relational})
