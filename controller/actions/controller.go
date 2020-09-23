@@ -4,8 +4,6 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/rod6214/testrepo/controller/utils"
-
 	"github.com/rod6214/testrepo/controller/items"
 	// "github.com/rod6214/testrepo/controller/items"
 	// "github.com/southworks/gnalog/demo/controller/items"
@@ -138,9 +136,12 @@ type Controller struct {
 // 	}
 // 	respondJSON(responseWriter, http.StatusOK, deleteItemResponse)
 // }
+func (controller *Controller) New(itemService items.ItemServiceClient) {
+	controller.ItemsClient = itemService
+}
 
 func (controller *Controller) getIds(responseWriter http.ResponseWriter, request *http.Request) {
-	var res = &utils.Response{controller.ItemsClient}
+	// var res := utils.Response.New()
 	relational := request.URL.Query().Get("relational") == "true"
 	// getIdsResponse, error := itemsClient.ListIds(context.Background(), &items.ListIdsRequest{Relational: relational})
 	getIdsResponse, error := controller.itemsClient.ListIds(context.Background(), &items.ListIdsRequest{Relational: relational})
