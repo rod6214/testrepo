@@ -69,7 +69,7 @@ type Controller struct {
 // 	respondJSON(responseWriter, http.StatusOK, testGPRCResponse)
 // }
 
-func (controller Controller) createItem(responseWriter http.ResponseWriter, request *http.Request) {
+func (controller Controller) CreateItem(responseWriter http.ResponseWriter, request *http.Request) {
 	itemsClient := controller.Response.ItemsClient
 	relational := request.URL.Query().Get("relational") == "true"
 	var createItem utils.CreateItemRequest
@@ -87,7 +87,7 @@ func (controller Controller) createItem(responseWriter http.ResponseWriter, requ
 	controller.Response.JSON(responseWriter, http.StatusOK, createItemResponse)
 }
 
-func (controller Controller) readItem(responseWriter http.ResponseWriter, request *http.Request) {
+func (controller Controller) ReadItem(responseWriter http.ResponseWriter, request *http.Request) {
 	// res := utils.Response{ItemsClient: controller.ItemsClient}
 	itemsClient := controller.Response.ItemsClient
 	relational := request.URL.Query().Get("relational") == "true"
@@ -104,7 +104,7 @@ func (controller Controller) readItem(responseWriter http.ResponseWriter, reques
 	controller.Response.JSON(responseWriter, http.StatusOK, readItemResponse)
 }
 
-func (controller Controller) updateItem(responseWriter http.ResponseWriter, request *http.Request) {
+func (controller Controller) UpdateItem(responseWriter http.ResponseWriter, request *http.Request) {
 	itemsClient := controller.Response.ItemsClient
 	relational := request.URL.Query().Get("relational") == "true"
 	var updateItem utils.UpdateItemRequest
@@ -130,7 +130,7 @@ func (controller Controller) updateItem(responseWriter http.ResponseWriter, requ
 // 	respondJSON(responseWriter, http.StatusOK, items)
 // }
 
-func (controller Controller) deleteItem(responseWriter http.ResponseWriter, request *http.Request) {
+func (controller Controller) DeleteItem(responseWriter http.ResponseWriter, request *http.Request) {
 	itemsClient := controller.Response.ItemsClient
 	relational := request.URL.Query().Get("relational") == "true"
 	id := mux.Vars(request)["id"]
@@ -151,7 +151,7 @@ func (controller Controller) deleteItem(responseWriter http.ResponseWriter, requ
 // 	return controller
 // }
 
-func (controller Controller) getIds(responseWriter http.ResponseWriter, request *http.Request) {
+func (controller Controller) GetIds(responseWriter http.ResponseWriter, request *http.Request) {
 	itemsClient := controller.Response.ItemsClient
 	// res := utils.Response{ItemsClient: itemsClient}
 

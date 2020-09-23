@@ -3,6 +3,10 @@ package main
 import (
 	"log"
 
+	"github.com/rod6214/testrepo/controller/utils"
+
+	"github.com/rod6214/testrepo/controller/actions"
+
 	"github.com/gorilla/mux"
 	"github.com/rod6214/testrepo/controller/items"
 	"google.golang.org/grpc"
@@ -56,12 +60,12 @@ func main() {
 	itemsClient := items.NewItemServiceClient(clientConnection)
 	router := mux.NewRouter().StrictSlash(true)
 	// Controllers
-	// acts := actions{Res}
+	controllers := actions.Controller{Response: utils.Response{ItemsClient: itemsClient}}
 	// router.HandleFunc("/", helloWorld)
 	// router.HandleFunc("/grpc", testGRPC)
 	itemsRouter := router.PathPrefix("/items").Subrouter()
-	itemsRouter.HandleFunc("/", createItem).Methods("POST")
-	itemsRouter.HandleFunc("/{id}", readItem).Methods("GET")
+	itemsRouter.HandleFunc("/", controllers.CreateItem).Methods("POST")
+	itemsRouter.HandleFunc("/{id}", controllers.ReadItem).Methods("GET")
 	itemsRouter.HandleFunc("/", updateItem).Methods("PUT")
 	itemsRouter.HandleFunc("/", getAllItems).Methods("GET")
 	itemsRouter.HandleFunc("/{id}", deleteItem).Methods("DELETE")
