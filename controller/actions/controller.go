@@ -144,9 +144,8 @@ func (controller *Controller) New(itemService items.ItemServiceClient) *Controll
 
 func (controller *Controller) getIds(responseWriter http.ResponseWriter, request *http.Request) {
 	// var res = new(utils.Response)
-	var res = utils.Response{ItemsClient: nil}
+	res := utils.Response{ItemsClient: nil}
 
-	res.New(controller.ItemsClient)
 	relational := request.URL.Query().Get("relational") == "true"
 	// getIdsResponse, error := itemsClient.ListIds(context.Background(), &items.ListIdsRequest{Relational: relational})
 	getIdsResponse, error := controller.itemsClient.ListIds(context.Background(), &items.ListIdsRequest{Relational: relational})
