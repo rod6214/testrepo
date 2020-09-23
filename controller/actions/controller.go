@@ -107,7 +107,7 @@ func (controller Controller) readItem(responseWriter http.ResponseWriter, reques
 func (controller Controller) updateItem(responseWriter http.ResponseWriter, request *http.Request) {
 	itemsClient := controller.Response.ItemsClient
 	relational := request.URL.Query().Get("relational") == "true"
-	var updateItem updateItemRequest
+	var updateItem utils.UpdateItemRequest
 	decoder := json.NewDecoder(request.Body)
 	if error := decoder.Decode(&updateItem); error != nil {
 		controller.Response.JSON(responseWriter, http.StatusInternalServerError, error)
