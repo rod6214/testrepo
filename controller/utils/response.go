@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/southworks/gnalog/demo/controller/items"
+	"github.com/rod6214/testrepo/controller/items"
 )
 
 type Response struct {
@@ -21,7 +21,7 @@ type Response struct {
 // 	Description string `json:"description"`
 // }
 
-func (res *response) JSON(responseWriter http.ResponseWriter, status int, payload interface{}) {
+func (res *Response) JSON(responseWriter http.ResponseWriter, status int, payload interface{}) {
 	response, err := json.Marshal(payload)
 	if err != nil {
 		responseWriter.WriteHeader(http.StatusInternalServerError)
@@ -33,11 +33,11 @@ func (res *response) JSON(responseWriter http.ResponseWriter, status int, payloa
 	responseWriter.Write([]byte(response))
 }
 
-func (res *response) Message(responseWriter http.ResponseWriter, code int, message string) {
+func (res *Response) Message(responseWriter http.ResponseWriter, code int, message string) {
 	res.JSON(responseWriter, code, map[string]string{"message": message})
 }
 
-func (res *response) Error(responseWriter http.ResponseWriter, code int, message string) {
+func (res *Response) Error(responseWriter http.ResponseWriter, code int, message string) {
 	res.JSON(responseWriter, code, map[string]string{"error": message})
 }
 
