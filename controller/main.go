@@ -3,7 +3,7 @@ package main
 import (
 	"encoding/json"
 	"net/http"
-	"github.com/rod6214/testrepo/controller/items"
+
 	"github.com/rod6214/testrepo/controller/actions"
 	// "github.com/southworks/gnalog/demo/controller/items"
 )
@@ -39,7 +39,7 @@ func respondError(responseWriter http.ResponseWriter, code int, message string) 
 	respondJSON(responseWriter, code, map[string]string{"error": message})
 }
 
-var itemsClient items.ItemServiceClient
+// var itemsClient items.ItemServiceClient
 
 // -----
 
