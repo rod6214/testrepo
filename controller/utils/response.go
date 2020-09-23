@@ -8,7 +8,7 @@ import (
 )
 
 type Response struct {
-	itemsClient items.ItemServiceClient
+	itemsClient *items.ItemServiceClient
 }
 
 // type createItemRequest struct {
@@ -20,6 +20,11 @@ type Response struct {
 // 	ID          string `json:"id"`
 // 	Description string `json:"description"`
 // }
+
+func (res *Response) New(itemsClient *items.ItemServiceClient) *Response {
+	res.itemsClient = itemsClient
+	return res
+}
 
 func (res *Response) JSON(responseWriter http.ResponseWriter, status int, payload interface{}) {
 	response, err := json.Marshal(payload)
