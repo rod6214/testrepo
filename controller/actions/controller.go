@@ -4,6 +4,7 @@ import (
 	"context"
 	"net/http"
 
+	"github.com/gorilla/mux"
 	"github.com/rod6214/testrepo/controller/items"
 	"github.com/rod6214/testrepo/controller/utils"
 	// "github.com/rod6214/testrepo/controller/items"
@@ -50,6 +51,7 @@ func TestMethod() {}
 // ---------------
 type Controller struct {
 	ItemsClient items.ItemServiceClient
+	Response    utils.Response
 }
 
 // func helloWorld(responseWriter http.ResponseWriter, request *http.Request) {
@@ -83,20 +85,21 @@ type Controller struct {
 // 	respondJSON(responseWriter, http.StatusOK, createItemResponse)
 // }
 
-// func readItem(responseWriter http.ResponseWriter, request *http.Request) {
-// 	relational := request.URL.Query().Get("relational") == "true"
-// 	id := mux.Vars(request)["id"]
-// 	readItemResponse, error := itemsClient.ReadItem(context.Background(), &items.ReadItemRequest{Id: id, Relational: relational})
-// 	if error != nil {
-// 		respondJSON(responseWriter, http.StatusInternalServerError, error)
-// 		return
-// 	}
-// 	if readItemResponse.Error {
-// 		respondError(responseWriter, http.StatusBadRequest, readItemResponse.Message)
-// 		return
-// 	}
-// 	respondJSON(responseWriter, http.StatusOK, readItemResponse)
-// }
+func (controller Controller) readItem(responseWriter http.ResponseWriter, request *http.Request) {
+	// res := utils.Response{ItemsClient: controller.ItemsClient}
+	relational := request.URL.Query().Get("relational") == "true"
+	id := mux.Vars(request)["id"]
+	readItemResponse, error := controller.ItemsClient.ReadItem(context.Background(), &items.ReadItemRequest{Id: id, Relational: relational})
+	if error != nil {
+		Controller.Response.JSON(responseWriter, http.StatusInternalServerError, error)
+		return
+	}
+	if readItemResponse.Error {
+		Controller.Response.Error(responseWriter, http.StatusBadRequest, readItemResponse.Message)
+		return
+	}
+	res.JSON(responseWriter, http.StatusOK, readItemResponse)
+}
 
 // func updateItem(responseWriter http.ResponseWriter, request *http.Request) {
 // 	relational := request.URL.Query().Get("relational") == "true"
@@ -137,21 +140,20 @@ type Controller struct {
 // 	}
 // 	respondJSON(responseWriter, http.StatusOK, deleteItemResponse)
 // }
-func (controller *Controller) New(itemService items.ItemServiceClient) *Controller {
-	controller.ItemsClient = itemService
-	return controller
-}
+// func (controller Controller) New(itemService items.ItemServiceClient) *Controller {
+// 	controller.ItemsClient = itemService
+// 	return controller
+// }
 
-func (controller *Controller) getIds(responseWriter http.ResponseWriter, request *http.Request) {
-	// var res = new(utils.Response)
-	res := utils.Response{ItemsClient: nil}
+func (controller Controller) getIds(responseWriter http.ResponseWriter, request *http.Request) {
+	res := utils.Response{ItemsClient: controller.ItemsClient}
 
 	relational := request.URL.Query().Get("relational") == "true"
 	// getIdsResponse, error := itemsClient.ListIds(context.Background(), &items.ListIdsRequest{Relational: relational})
-	getIdsResponse, error := controller.itemsClient.ListIds(context.Background(), &items.ListIdsRequest{Relational: relational})
+	getIdsResponse, error := controller.ItemsClient.ListIds(context.Background(), &items.ListIdsRequest{Relational: relational})
 	if error != nil {
-		respondJSON(responseWriter, http.StatusInternalServerError, error)
+		res.JSON(responseWriter, http.StatusInternalServerError, error)
 		return
 	}
-	respondJSON(responseWriter, http.StatusOK, getIdsResponse)
+	res.JSON(responseWriter, http.StatusOK, getIdsResponse)
 }
